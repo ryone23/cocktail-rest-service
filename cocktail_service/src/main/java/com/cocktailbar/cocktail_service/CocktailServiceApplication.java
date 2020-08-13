@@ -10,4 +10,5 @@ public class CocktailServiceApplication {
         SpringApplication.run(CocktailServiceApplication.class, args);
     }
 
+
 }
