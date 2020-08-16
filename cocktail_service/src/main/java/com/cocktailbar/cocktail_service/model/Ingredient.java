@@ -1,12 +1,15 @@
 package com.cocktailbar.cocktail_service.model;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingred_id_seq")
+    @SequenceGenerator(name = "ingred_id_seq", sequenceName = "ingredient_seq", allocationSize = 1)
     private Long ingredient_id;
 
     private String ingredient_name;

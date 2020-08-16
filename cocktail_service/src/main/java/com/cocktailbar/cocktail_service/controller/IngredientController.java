@@ -34,7 +34,7 @@ class IngredientController {
         return repository.save(newIngredient);
     }
 
-    @PutMapping("/ingredients/{id)")
+    @PutMapping("/ingredients/{id}")
     Optional<Ingredient> replaceIngredient(@RequestBody Ingredient newIngredient,
                                  @PathVariable Long id) {
 

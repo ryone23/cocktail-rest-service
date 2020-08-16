@@ -1,6 +1,6 @@
 package com.cocktailbar.cocktail_service.model;
 
-import com.sun.istack.NotNull;
+import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Objects;
@@ -9,7 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "drinks")
 public class Drink {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drink_id_seq")
+    @SequenceGenerator(name = "drink_id_seq", sequenceName = "drink_seq", allocationSize = 1)
     private Long drink_id;
 
     private String drink_name;

@@ -3,6 +3,7 @@ package com.cocktailbar.cocktail_service.controller;
 import com.cocktailbar.cocktail_service.model.Garnish;
 import com.cocktailbar.cocktail_service.repository.GarnishRepository;
 import com.cocktailbar.cocktail_service.exception.GarnishNotFoundException;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,6 @@ class GarnishController {
 
     @GetMapping("/garnishes/{id}")
     Garnish getOneGarnish(@PathVariable Long id) {
-
         return repository.findById(id)
                 .orElseThrow(() -> new GarnishNotFoundException(id));
     }
@@ -35,7 +35,7 @@ class GarnishController {
         return repository.save(newGarnish);
     }
 
-    @PutMapping("/garnishes/{id)")
+    @PutMapping("/garnishes/{id}")
     Optional<Garnish> replaceGarnish(@RequestBody Garnish newGarnish,
                                            @PathVariable Long id) {
 
