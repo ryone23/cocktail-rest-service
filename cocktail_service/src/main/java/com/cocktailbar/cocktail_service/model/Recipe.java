@@ -3,6 +3,8 @@ package com.cocktailbar.cocktail_service.model;
 import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.persistence.*;
 
@@ -19,7 +21,7 @@ public class Recipe implements Serializable {
     @Column(name = "ingredient_name", insertable = false, updatable = false)
     private String ingredient_name;
     @Column(name = "ingredient_measurement")
-    private Integer ingredient_measurement;
+    private Float ingredient_measurement;
     @Column(name = "ingredient_notes")
     private String ingredient_notes;
     @Column(name = "garn_name")
@@ -27,16 +29,6 @@ public class Recipe implements Serializable {
     @Column(name = "garn_notes")
     private String garn_notes;
 
-    /*
-    @ManyToOne
-    @JoinColumn(name = "drink_name")
-    private Drink drink;
-
-    @ManyToOne
-    @JoinColumn(name = "ingredient_name")
-    private Ingredient ingredient;
-
-     */
 
     public RecipeId getId() {
         return id;
@@ -54,7 +46,7 @@ public class Recipe implements Serializable {
         return ingredient_name;
     }
 
-    public Integer getIngredientMeasurement() {
+    public Float getIngredientMeasurement() {
         return ingredient_measurement;
     }
 
@@ -78,7 +70,7 @@ public class Recipe implements Serializable {
         this.ingredient_name = ingredient_name;
     }
 
-    public void setIngredientMeasurement(Integer ingredient_measurement) {
+    public void setIngredientMeasurement(Float ingredient_measurement) {
         this.ingredient_measurement = ingredient_measurement;
     }
 
@@ -94,3 +86,4 @@ public class Recipe implements Serializable {
         this.garn_notes = garn_notes;
     }
 }
+
