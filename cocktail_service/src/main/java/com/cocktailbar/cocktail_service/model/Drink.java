@@ -1,14 +1,12 @@
 package com.cocktailbar.cocktail_service.model;
 
-import java.util.List;
-import org.hibernate.annotations.ColumnDefault;
-
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "drinks")
-public class Drink {
+public class Drink implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drink_id_seq")
     @SequenceGenerator(name = "drink_id_seq", sequenceName = "drink_seq", allocationSize = 1)

@@ -1,7 +1,5 @@
 package com.cocktailbar.cocktail_service.model;
 
-import javax.persistence.Entity;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +23,7 @@ public class ExactRecipe {
         this.ingredientNotes=ingredientNotes;
         this.garnishes = garnishes;
         this.garnishNotes = garnishNotes;
+
     }
 
     public ExactRecipe(List<Recipe> recipeList) {

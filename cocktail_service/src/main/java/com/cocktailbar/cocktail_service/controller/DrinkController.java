@@ -4,27 +4,44 @@ import com.cocktailbar.cocktail_service.model.Drink;
 import com.cocktailbar.cocktail_service.repository.DrinkRepository;
 import com.cocktailbar.cocktail_service.exception.DrinkNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 class DrinkController {
 
 
     private final DrinkRepository repository;
+    private final DrinkModelAssembler assembler;
 
-    DrinkController(DrinkRepository repository) {this.repository = repository; }
+    DrinkController(DrinkRepository repository, DrinkModelAssembler assembler) {this.repository = repository;
+        this.assembler = assembler;
+    }
 
     @GetMapping("/drinks")
-    List<Drink> getAllDrinks() {
-            return repository.findAllByOrderByDrinkIdAsc();
-    }
-    @GetMapping("/drinks/{id}")
-    Drink getOneDrink(@PathVariable Long id) {
+    CollectionModel<EntityModel<Drink>> getAllDrinks() {
+        List<EntityModel<Drink>> drinks = repository.findAllByOrderByDrinkIdAsc().stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
 
-        return repository.findById(id)
+        return CollectionModel.of(drinks,
+                linkTo(methodOn(DrinkController.class).getAllDrinks()).withSelfRel());
+    }
+
+
+    @GetMapping("/drinks/{id}")
+    EntityModel<Drink> getOneDrink(@PathVariable Long id) {
+
+        Drink drink = repository.findById(id)
                 .orElseThrow(() -> new DrinkNotFoundException(id));
+        return assembler.toModel(drink);
     }
 
     @PostMapping("/drinks")
